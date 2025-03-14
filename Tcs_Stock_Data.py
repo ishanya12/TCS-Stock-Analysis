@@ -9,14 +9,14 @@ from sklearn.preprocessing import MinMaxScaler
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import LSTM, Dense
 from statsmodels.tsa.stattools import adfuller
-#load dataset
 
+#load dataset
 df = pd.read_csv('TCS_stock_history.csv', parse_dates=['Date'], index_col='Date')
 print(df.info())
 df['5_day_MA'] = df['Close'].rolling(window=5).mean()
 df['30_day_MA'] = df['Close'].rolling(window=30).mean()
-#plot the closing price with moving average
 
+#plot the closing price with moving average
 plt.figure(figsize=(11,5))
 plt.plot(df['Close'], label='TCS Close Price')
 plt.plot(df['5_day_MA'], label='5 Day Moving Average', linestyle='--')
@@ -49,7 +49,6 @@ print(f'Mean Squared Error : {mse}')
 print(f'R^2 Score: {r2}')
 
 #lstm model for stock price prediction
-
 data = df[['Close']].values
 scaler = MinMaxScaler(feature_range= (0,1))
 scaled_data = scaler.fit_transform(data)
